@@ -1,26 +1,25 @@
 # RideShare — Java 6 · PWA dhe puna offline
 
 Ruaje si java-06.md pranë README të repository-t, jashtë aplikacioni/.
-Hiqi [PLOTËSO]. Mos vendos sekrete, email ose fotografi kredencialesh.
+Mos vendos sekrete, email ose fotografi kredencialesh.
 
 ## Çfarë ndërtova
 Ne kete detyre e pergatita RideShare qe lista e udhetimeve te mund te lexohet edhe pa internet. Shtova manifestin me emrin dhe ikonat e aplikacionit, service worker-in qe ruan disa skedare ne pajisje dhe nje faqe te vecante per listen publike. Lista merret nga API-ja /api/udhetimet dhe ruhet per t'u lexuar kur nuk ka lidhje interneti.
 ## Provat që bëra
 ### Prova 1: Manifesti dhe vizita online
-Hapa http://localhost:3000/ dhe kontrollova edhe http://localhost:3000/api/udhetimet. API-ja shfaqi tri udhetime: Prishtine, Fushe Kosove dhe Lipjan, me destinacion AAB.
+Hapat: Hapa http://localhost:3000/ dhe http://localhost:3000/api/udhetimet, pastaj kontrollova manifestin, ikonat, Service Worker-in dhe Cache Storage.
 
-Ikonat qe pergatita jane icon-192.png me permasa 192 × 192 dhe icon-512.png me permasa 512 × 512. Kontrollova gjithashtu qe sw.js ishte aktiv dhe po funksiononte. Lista publike u ruajt ne Cache Storage.
+Rezultati: API-ja shfaqi tri udhetime me destinacion AAB (Prishtine, Fushe Kosove dhe Lipjan). Ikonat ishin 192 × 192 dhe 512 × 512; raportova se sw.js ishte aktiv dhe lista publike ishte ruajtur ne Cache Storage.
 
 ### Prova 2: Pa internet dhe pas rifreskimit
-Per ta provuar funksionimin pa internet, perdora Developer Tools ne Chrome, te Network, dhe zgjodha Offline. Pastaj hapa http://localhost:3000/offline.html dhe e rifreskova faqen.
+Hapat: Ne Chrome Developer Tools zgjodha Network → Offline, hapa http://localhost:3000/offline.html dhe e rifreskova faqen.
 
-Tri udhetimet vazhduan te shfaqeshin edhe pa internet. Ne Cache Storage kontrollova qe ishin ruajtur lista /api/udhetimet, faqja /offline.html dhe te dy ikonat.
+Rezultati: Tri udhetimet vazhduan te shfaqeshin dhe faqja tregoi kohen e ruajtjes. Kontrollova ne Cache Storage listen /api/udhetimet, faqen /offline.html dhe dy ikonat. Lista offline mund te jete e vjeter; butoni i rezervimit nuk konfirmon kerkese.
 
-Faqja shfaqte kohen kur ishte ruajtur lista. Kjo kopje mund te jete e vjeter, prandaj sherben vetem per lexim. Nuk eshte konfirmim rezervimi, sepse pa lidhje me serverin nuk mund te kontrollohen vendet e lira ose te regjistrohet nje kerkese e re.
 ### Prova 3: Lidhja rikthehet
-Ne Neon kontrollova udhetimin me ID 2. Fillimisht ora ishte 08:15. Per testin e ndryshova ne 08:25 dhe kontrollova qe lista e ruajtur offline e shfaqte oren 08:25.
+Hapat: Ne Neon kontrollova udhetimin me ID 2 (08:15), e ndryshova ne 08:25, pastaj riktheva lidhjen dhe rifreskova listen. Ne fund e ktheva oren ne 08:15 dhe rifreskova faqen.
 
-Pas rikthimit te lidhjes, kontrollova perseri listen dhe API-ne. Ne fund, oren e riktheva ne 08:15 dhe e rifreskova faqen kryesore. Udhetimi Fushe Kosove → AAB u shfaq me oren 08:15.
+Rezultati: Raportova se lista e shfaqte 08:25 dhe se pas rikthimit ne 08:15 udhetimi Fushe Kosove → AAB u shfaq me oren 08:15. Nuk e dokumentova nese ndryshimin 08:25 e bera ndersa RideShare ishte offline dhe nese kopja mbeti 08:15 deri ne rifreskimin online; prandaj kjo prove nuk verteton ende perditesimin pas rikthimit te lidhjes dhe duhet perseritur sipas ketyre hapave.
 
 ## Ku gjendet puna
 Repository: https://github.com/bleonabytyci/rideshare-mobile
