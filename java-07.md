@@ -42,5 +42,5 @@ Perdora AI per te analizuar mospërputhjen mes skedarit `schema.sql` dhe struktu
 
 ## Commit-et
 
-- Para korrigjimit: [Shto linkun e commit-it ekzistues]
-- Pas korrigjimit: [Shto linkun e commit-it te ri]
+- Para korrigjimit: https://github.com/bleonabytyci/rideshare-mobile/commit/986b98a05aa004c21c96d4911dc461662eca12e7
+- Pas korrigjimit: https://github.com/bleonabytyci/rideshare-mobile/commit/3a7a5f7a0693c8c2f6ccf0700e671d4e91fd5e3c
