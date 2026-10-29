@@ -1,4 +1,3 @@
-
 import "server-only";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
@@ -47,7 +46,7 @@ export async function ndryshoOren(id: string, ora: string) {
   }
 
   if (
-    !/^[123]$/.test(id) ||
+    !/^\d+$/.test(id) ||
     !/^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(ora)
   ) {
     return "fushe";
