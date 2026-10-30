@@ -69,4 +69,4 @@ https://github.com/bleonabytyci/rideshare-mobile/commit/986b98a05aa004c21c96d491
 
 **Pas korrigjimit te kodit:**
 
-https://github.com/bleonabytyci/rideshare-mobile/commit/3094476c2c04551c4d246f35b00e7d5d16d58677
+https://github.com/bleonabytyci/rideshare-mobile/commit/2270e454752e4163b653d39fda37a2e9d383651b
