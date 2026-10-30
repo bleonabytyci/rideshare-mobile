@@ -19,65 +19,47 @@ Mendoj se kur udhetimi ka 0 vende te lira, perdoruesi nuk duhet te mund te kerko
 
 ## Problemet dhe paqartesite e verejtura
 
-1. Ne skedarin `schema.sql`, emrat e kolonave `destinacioni` dhe `vende` nuk perputheshin me emrat `mberritja` dhe `vende_lira` ne databazen Neon.
+1. Ne `aplikacioni/src/app/udhetimi/[id]/kerkesa/page.tsx`, titulli "Simulim: Ne pritje" mund te kuptohej sikur kerkesa ishte derguar dhe priste pergjigje. Teksti poshte thoshte se nuk dergohej, por titulli krijonte paqartesi.
 
-2. Skedari `schema.sql` nuk e kishte te deklaruar kolonen `shofer_id`, ndersa kjo kolone ekziston ne tabelen aktuale te databazes.
-
-3. Ne skedarin `aplikacioni/src/lib/lejet.ts`, funksioni `ndryshoOren()` pranonte vetem ID-te 1, 2 dhe 3. Kjo ishte nje kufizim, sepse nuk lejonte ID numerike me me shume se nje shifer.
+2. Ne listen e udhetimeve, nje udhetim pa vende shfaqet si "Vende te lira: 0". Vetem pas hapjes se detajeve perdoruesi sheh butonin e caktivizuar "Nuk ka vende te lira".
 
 ## Korrigjimi i bere
 
-Se pari, korrigjova skedarin `aplikacioni/schema.sql` duke i pershtatur emrat e kolonave me strukturen aktuale te databazes Neon. Gjithashtu shtova kolonen `shofer_id`.
-
-Me pas, korrigjova skedarin `aplikacioni/src/lib/lejet.ts`.
-
-Ne funksionin `ndryshoOren()` ndryshova kontrollin e ID-se. Me pare pranoheshin vetem ID-te 1, 2 dhe 3, ndersa tani pranohen ID numerike me nje ose me shume shifra.
-
-Ky ndryshim e ben validimin me fleksibel dhe nuk e kufizon perdorimin vetem ne tri ID.
+Ndryshova titullin ne `aplikacioni/src/app/udhetimi/[id]/kerkesa/page.tsx` ne "Kerkese vetem per demonstrim" dhe sqarova se kerkesa nuk u dergua dhe nuk u ruajt. Kjo e dallon simulimin nga nje rezervim real. Paqartesia e dyte u shenua, por nuk u ndryshua.
 
 ## Testimi
 
-### Testi 1 – Udhetimi pa vende te lira
+Provat u kryen ne aplikacionin lokal me shfletues, me ndihmen e AI. Përsëriti vetë para dorëzimit që të mund t'i shpjegosh rezultatet.
 
-- Hapat: Hapa udhetimin Lipjan – AAB me ID 3.
-- Pritshmeria: Aplikacioni nuk duhet te lejoje kerkesen per vend kur nuk ka vende te lira.
-- Verejtja: Shfaqen 0 vende te lira dhe mesazhi "Nuk ka vende te lira". Mundesia per te kerkuar vend eshte e caktivizuar.
+### Prova 1 – Rrjedha e udhetimit personal
 
-### Testi 2 – Udhetimi me vende te lira
+- Hapat: Nga lista hapa Ferizaj – AAB (ID 4), pastaj zgjodha "Kerko vend".
+- Pritshmeria: Te shfaqen te dhenat e udhetimit dhe te sqarohet se veprimi eshte simulim, jo kerkese reale.
+- Verejtja: U shfaqen ora 10:05 dhe 2 vende. Faqja shfaqi "Kerkese vetem per demonstrim" dhe "Kerkesa per Ferizaj nuk u dergua dhe nuk u ruajt".
 
-- Hapat: Hapa udhetimin Prishtine – AAB me ID 1.
-- Pritshmeria: Aplikacioni duhet te shfaqe numrin e vendeve te lira dhe mundesine per te kerkuar vend.
-- Verejtja: Shfaqen 2 vende te lira dhe lidhja "Kerko vend".
+### Prova 2 – Udhetimi pa vende te lira
 
-### Testi 3 – Klikimi te Kerko vend
+- Hapat: Hapa udhetimin Lipjan – AAB (ID 3), pastaj provova edhe faqen e kerkeses.
+- Pritshmeria: Kur ka 0 vende, perdoruesi nuk duhet te mund te kerkoje vend.
+- Verejtja: Detajet shfaqen me 0 vende dhe butoni "Nuk ka vende te lira" eshte i caktivizuar. Faqja e kerkeses shfaq "Nuk ka vende te lira".
 
-- Hapat: Klikova lidhjen "Kerko vend" te udhetimi Prishtine – AAB.
-- Pritshmeria: Faqja duhet te tregoje statusin e kerkeses.
-- Verejtja: Shfaqet "Simulim: Ne pritje" dhe mesazhi se kerkesa nuk eshte derguar te shoferi. Ruajtja dhe konfirmimi real nuk jane implementuar ende.
+### Prova 3 – ID qe nuk ekziston
+
+- Hapat: Hapa `/udhetimi/999999`.
+- Pritshmeria: Te shfaqet mesazh i qarte dhe lidhje per t'u kthyer te lista.
+- Verejtja: U shfaq "Udhëtimi nuk u gjet" dhe lidhja "Kthehu te lista".
 
 ## Kontrollimi i kodit
 
-Pas korrigjimit te skedarit `lejet.ts`, ekzekutova komanden:
-
-`npx tsc --noEmit`
-
-Rezultati: Komanda perfundoi pa shfaqur gabime TypeScript.
-
-Gjithashtu ekzekutova:
-
-`npm run build`
-
-Rezultati: Build perfundoi me sukses. Aplikacioni u kompajlua pa gabime.
+`npm run build` perfundoi me sukses. ESLint kaloi per faqet e ndryshuara (`kerkesa/page.tsx` dhe `panel/page.tsx`). `npm run lint` per te gjithe aplikacionin ende raporton nje problem ekzistues ne `src/app/page.tsx:18`: perdoret nje element `<a>` per navigim brenda aplikacionit.
 
 ## Ndryshimi i inputit
 
-Ne rastin personal P7-985, te dhenat e testimit jane Ferizaj – AAB, ora 10:05 dhe 2 vende. Ora e re per testim eshte 10:10.
-
-Ne kodin e validimit ndryshova menyren e kontrollimit te ID-se, ne menyre qe te pranohen edhe ID numerike me me shume se nje shifer.
+Rasti personal P7-985 perdor Ferizaj – AAB, oren 10:05, 2 vende dhe oren 10:10 per testim. Per proves se kufirit perdora udhetimin ekzistues ID 3 me 0 vende; per prove tjeter perdora ID 999999 qe nuk ekziston. Nuk ndryshova te dhena ne databaze.
 
 ## Perdorimi i AI
 
-Perdora AI per te analizuar problemet ne skedarin `schema.sql`, per te kontrolluar kodin e aplikacionit dhe per te identifikuar kufizimin ne validimin e ID-se. AI me ndihmoi ne propozimin e korrigjimit dhe ne kontrollimin e kodit me TypeScript dhe build.
+Perdora AI per te shqyrtuar paqartesine ne tekst, per te bere korrigjimin ne faqe dhe per te verifikuar rrjedhen ne shfletuesin lokal, lint-in dhe build-in. Provat dhe rezultatet jane shenuar me siper; do t'i perseris vete para dorezimit.
 
 ## Commit-et
 
@@ -85,10 +67,6 @@ Perdora AI per te analizuar problemet ne skedarin `schema.sql`, per te kontrollu
 
 https://github.com/bleonabytyci/rideshare-mobile/commit/986b98a05aa004c21c96d4911dc461662eca12e7
 
-**Korrigjimi i skemes se databazes:**
-
-https://github.com/bleonabytyci/rideshare-mobile/commit/3a7a5f7a0693c8c2f6ccf0700e671d4e91fd5e3c
-
 **Pas korrigjimit te kodit:**
 
-https://github.com/bleonabytyci/rideshare-mobile/commit/ec6a5b774e3e55feca786374aa899d1b13b89c3f
+https://github.com/bleonabytyci/rideshare-mobile/commit/3094476c2c04551c4d246f35b00e7d5d16d58677
