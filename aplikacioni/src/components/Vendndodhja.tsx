@@ -3,57 +3,58 @@
 
 import { useState } from "react";
 
+type Gjendja = "idle" | "loading" | "success" | "denied" | "timeout" | "unavailable";
+
 export default function Vendndodhja() {
-  const [mesazhi, setMesazhi] = useState("");
   const [teksti, setTeksti] = useState("");
   const [vendtakimi, setVendtakimi] = useState("");
-  const [poKerkohet, setPoKerkohet] = useState(false);
+  const [gjendja, setGjendja] = useState<Gjendja>("idle");
+  const [mesazhi, setMesazhi] = useState("");
+  const [gabimi, setGabimi] = useState("");
+  const [saktesia, setSaktesia] = useState<number | null>(null);
 
   function konfirmoVendtakimin() {
-    const vendtakimiPastruar = teksti.trim();
+    const iPastruar = teksti.trim();
 
-    if (!vendtakimiPastruar) {
-      setMesazhi("Vendtakimi nuk mund të jetë bosh.");
+    if (!iPastruar) {
+      setGabimi("Vendtakimi nuk mund të jetë bosh.");
       return;
     }
 
-    setVendtakimi(vendtakimiPastruar);
-    setMesazhi(`Vendtakimi u konfirmua: ${vendtakimiPastruar}`);
+    setGabimi("");
+    setVendtakimi(iPastruar);
+    setMesazhi(`Vendtakimi u konfirmua: ${iPastruar}`);
   }
 
   function perdorVendndodhjen() {
     if (!navigator.geolocation) {
-      setMesazhi("Pajisja ose shfletuesi nuk e mbështet vendndodhjen.");
+      setGjendja("unavailable");
+      setMesazhi(
+        "Pajisja ose shfletuesi nuk e mbështet vendndodhjen. Shkruaj vendtakimin manualisht."
+      );
       return;
     }
 
-    setPoKerkohet(true);
+    setGjendja("loading");
     setMesazhi("Po kërkojmë vendndodhjen...");
+    setSaktesia(null);
 
     navigator.geolocation.getCurrentPosition(
       (pozita) => {
-        setPoKerkohet(false);
-        const { latitude, longitude, accuracy } = pozita.coords;
-
-        setMesazhi(
-          `Pozicioni u mor. Gjerësia: ${latitude.toFixed(
-            4
-          )}, Gjatësia: ${longitude.toFixed(4)}, Saktësia: ${Math.round(
-            accuracy
-          )} m.`
-        );
+        setGjendja("success");
+        setMesazhi("Vendndodhja u mor me sukses.");
+        setSaktesia(Math.round(pozita.coords.accuracy));
       },
       (gabimi) => {
-        setPoKerkohet(false);
-
         if (gabimi.code === 1) {
-          setMesazhi("Leja u refuzua. Shkruaj vendtakimin vetë.");
-        } else if (gabimi.code === 2) {
-          setMesazhi("Vendndodhja nuk është e disponueshme. Shkruaj vendtakimin vetë.");
+          setGjendja("denied");
+          setMesazhi("Leja u refuzua. Shkruaj vendtakimin manualisht.");
         } else if (gabimi.code === 3) {
-          setMesazhi("Kërkesa për vendndodhje mbaroi. Provo përsëri ose shkruaj vendtakimin.");
+          setGjendja("timeout");
+          setMesazhi("Kërkesa për vendndodhje mori shumë kohë. Shkruaj vendtakimin manualisht.");
         } else {
-          setMesazhi("Kërkesa për vendndodhje dështoi. Shkruaj vendtakimin vetë.");
+          setGjendja("unavailable");
+          setMesazhi("Vendndodhja nuk është e disponueshme. Shkruaj vendtakimin manualisht.");
         }
       },
       {
@@ -70,38 +71,54 @@ export default function Vendndodhja() {
       <button
         type="button"
         onClick={perdorVendndodhjen}
-        disabled={poKerkohet}
-        data-testid="location-button"
+        disabled={gjendja === "loading"}
+        data-testid="locate-me"
       >
-        {poKerkohet ? "Po kërkojmë vendndodhjen..." : "Përdor vendndodhjen time"}
+        {gjendja === "loading"
+          ? "Po kërkojmë vendndodhjen..."
+          : "Përdor vendndodhjen time"}
       </button>
 
-      {mesazhi && (
-        <p role="status" data-testid="location-status">
-          {mesazhi}
-        </p>
-      )}
+      <p
+        role="status"
+        data-testid="location-status"
+        data-state={gjendja}
+      >
+        {mesazhi}
+      </p>
 
-      <label htmlFor="vendtakimi">Ose shkruaj vendtakimin</label>
+      <p data-testid="location-accuracy">
+        {saktesia !== null ? `Saktësia: ${saktesia} m` : ""}
+      </p>
+
+      <label htmlFor="meeting-input">
+        Ose shkruaj vendtakimin
+      </label>
 
       <input
-        id="vendtakimi"
+        id="meeting-input"
         type="text"
         value={teksti}
         onChange={(e) => setTeksti(e.target.value)}
-        placeholder="P.sh. Stacioni i autobuseve"
-        data-testid="manual-location-input"
+        placeholder="P.sh. Stacioni i autobusëve"
+        data-testid="meeting-input"
       />
+
+      <p role="alert" data-testid="meeting-error">
+        {gabimi}
+      </p>
 
       <button
         type="button"
         onClick={konfirmoVendtakimin}
-        data-testid="confirm-location-button"
+        data-testid="confirm-meeting"
       >
         Konfirmo vendtakimin
       </button>
 
-      {vendtakimi && <p>Vendtakimi i konfirmuar: {vendtakimi}</p>}
+      <p data-testid="confirmed-meeting">
+        {vendtakimi ? `Vendtakimi i konfirmuar: ${vendtakimi}` : ""}
+      </p>
     </section>
   );
 }

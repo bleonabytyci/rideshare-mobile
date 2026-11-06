@@ -1,10 +1,17 @@
+
 import Vendndodhja from "@/components/Vendndodhja";
 
-export default function Java08TestPage() {
+export default function Java08Test() {
   return (
-    <main style={{ maxWidth: 640, margin: "2rem auto", padding: "0 1rem" }}>
-      <h1>Java 8 · Testimi i vendtakimit</h1>
-      <p>Faqja e testimit përdor të njëjtin komponent vendtakimi si te detajet e udhëtimit.</p>
+    <main>
+      <h1>RideShare – Testimi Java 8</h1>
+
+      <h2>Udhetimi testues</h2>
+      <p>Shoferi: Driton</p>
+      <p>Nisja: Prishtine</p>
+      <p>Destinacioni: AAB</p>
+      <p>Ora: 08:00</p>
+
       <Vendndodhja />
     </main>
   );
