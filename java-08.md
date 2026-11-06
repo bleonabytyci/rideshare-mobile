@@ -40,10 +40,10 @@ Vendtakimi manual shfaqet në faqe, por ende nuk ruhet në databazë dhe nuk i d
 
 U përdorën mjete AI për sqarimin e funksioneve të vendndodhjes dhe organizimin e kodit. Rezultati u kontrollua duke testuar aplikacionin dhe duke ekzekutuar komandat e kontrollit.
 
-## Prova me nje hyrje te re
+## Prova me një hyrje të re
 
-- Hyrja qe provova: Shkrova "Biblioteka", e konfirmova dhe pastaj shkrova "Parkingu" pa e konfirmuar.
-- Parashikimi im para klikimit: Vendtakimi i konfirmuar duhet te mbetet "Biblioteka" derisa te konfirmohet nje vendtakim i ri.
-- Cfare pashe realisht: Vendtakimi i konfirmuar mbeti "Biblioteka". Pasi klikova butonin "Konfirmo vendtakimin" per "Parkingu", vendtakimi i konfirmuar ndryshoi ne "Parkingu".
-- Skedari dhe funksioni qe e shpjegojne: `Vendndodhja.tsx` — funksioni i konfirmimit te vendtakimit.
-- Cfare kuptova ose korrigjova: Kuptova dallimin mes tekstit qe shkruhet ne fushe dhe vendtakimit qe konfirmohet.
+- Hyrja që provova: Shkrova "Biblioteka", e konfirmova dhe pastaj shkrova "Parkingu" pa e konfirmuar.
+- Parashikimi im para klikimit: Vendtakimi i konfirmuar duhet të mbetet "Biblioteka" derisa të konfirmohet një vendtakim i ri.
+- Çfarë pashë realisht: Vendtakimi i konfirmuar mbeti "Biblioteka". Pasi klikova butonin "Konfirmo vendtakimin" për "Parkingu", vendtakimi i konfirmuar ndryshoi në "Parkingu".
+- Skedari dhe funksioni që e shpjegojnë: `Vendndodhja.tsx` — funksioni `konfirmoVendtakimin`.
+- Çfarë kuptova ose korrigjova: Kuptova dallimin mes tekstit që shkruhet në fushë dhe vendtakimit që konfirmohet.
