@@ -1,0 +1,17 @@
+{
+  "week": "Java 8",
+  "title": "Vendtakimi lokal me leje për vendndodhje",
+  "page": "/java-08-test",
+  "component": "Vendndodhja",
+  "requiredTestIds": [
+    "location-button",
+    "manual-location-input",
+    "confirm-location-button",
+    "location-status"
+  ],
+  "notes": [
+    "Përdor të njëjtin komponent te faqja e detajeve dhe te faqja e testimit.",
+    "Leja kërkohet vetëm pas klikimit të butonit të vendndodhjes.",
+    "Vendtakimi manual duhet të konfirmohet me tekst të plotë, jo me hapësira."
+  ]
+}
