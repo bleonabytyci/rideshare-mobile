@@ -2,14 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { gjejUdhetimin } from "@/lib/udhetimet";
 import Vendndodhja from "@/components/Vendndodhja";
+import PreferimiServer from "@/components/PreferimiServer";
 
 export const dynamic = "force-dynamic";
 
 export default async function Detajet({
   params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+}: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   let udhetim;
@@ -20,9 +19,7 @@ export default async function Detajet({
     return (
       <main>
         <h1>RideShare</h1>
-        <p role="alert">
-          Nuk u lidhëm me databazën. Provo përsëri.
-        </p>
+        <p role="alert">Nuk u lidhëm me databazën. Provo përsëri.</p>
         <Link href="/">← Kthehu te lista</Link>
       </main>
     );
@@ -34,21 +31,14 @@ export default async function Detajet({
     <main>
       <Link href="/">← Kthehu te lista</Link>
 
-      <h1>
-        {udhetim.nisja} – {udhetim.destinacioni}
-      </h1>
+      <h1>{udhetim.nisja} – {udhetim.destinacioni}</h1>
 
       <p>Ora: {udhetim.ora}</p>
       <p>Vendtakimi: {udhetim.vendtakimi}</p>
       <p>Vende të lira: {udhetim.vende}</p>
 
-      <Vendndodhja />
-
       {udhetim.vende > 0 ? (
-        <Link
-          className="action"
-          href={`/udhetimi/${id}/kerkesa`}
-        >
+        <Link className="action" href={`/udhetimi/${id}/kerkesa`}>
           Kërko vend
         </Link>
       ) : (
@@ -56,6 +46,10 @@ export default async function Detajet({
           Nuk ka vende të lira
         </button>
       )}
+
+      <PreferimiServer udhetimiId={id} />
+
+      <Vendndodhja />
     </main>
   );
 }
