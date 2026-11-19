@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { gjejUdhetimin } from "@/lib/udhetimet";
 import Vendndodhja from "@/components/Vendndodhja";
 import PreferimiServer from "@/components/PreferimiServer";
+import KerkesaUdhetimiLive from "@/components/KerkesaUdhetimiLive";
 
 export const dynamic = "force-dynamic";
 
@@ -35,17 +36,7 @@ export default async function Detajet({
 
       <p>Ora: {udhetim.ora}</p>
       <p>Vendtakimi: {udhetim.vendtakimi}</p>
-      <p>Vende të lira: {udhetim.vende}</p>
-
-      {udhetim.vende > 0 ? (
-        <Link className="action" href={`/udhetimi/${id}/kerkesa`}>
-          Kërko vend
-        </Link>
-      ) : (
-        <button className="action" disabled>
-          Nuk ka vende të lira
-        </button>
-      )}
+      <KerkesaUdhetimiLive udhetimiId={id} vendeFillestare={udhetim.vende} />
 
       <PreferimiServer udhetimiId={id} />
 

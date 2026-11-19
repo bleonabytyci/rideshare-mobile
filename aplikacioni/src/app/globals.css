@@ -25,3 +25,13 @@ main { max-width: 720px; margin: auto; padding: 24px; }
 .preferimi-shenim { font-size: 0.8rem; color: #a9b6cc; margin-top: 0; }
 .link-buton { background: none; border: 0; padding: 8px 0; color: #89ddff;
   text-decoration: underline; cursor: pointer; font: inherit; }
+
+/* Java 10 · kërkesat e udhëtimit */
+.kerkesat { margin: 20px 0; padding: 16px; border: 1px solid #8090aa;
+  border-radius: 12px; }
+.kerkesat h2 { margin-top: 0; }
+.kerkesat-vendet { display: flex; justify-content: space-between; }
+.kerkesat-lista { display: grid; gap: 12px; padding-left: 20px; }
+.kerkesat-lista li { display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 8px; }
+.kerkesat-shenim { color: #a9b6cc; font-size: 0.85rem; }

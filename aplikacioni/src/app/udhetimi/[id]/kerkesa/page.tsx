@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { gjejUdhetimin } from "@/lib/udhetimet";
+import KerkesaUdhetimiLive from "@/components/KerkesaUdhetimiLive";
 
 export const dynamic = "force-dynamic";
 
@@ -25,15 +26,8 @@ export default async function Kerkesa({
   return (
     <main>
       <Link href={`/udhetimi/${id}`}>← Kthehu te detajet</Link>
-      {udhetim.vende > 0 ? (
-        <>
-          <h1>Kërkesë vetëm për demonstrim</h1>
-          <p>
-            Kërkesa për {udhetim.nisja} nuk u dërgua dhe nuk u ruajt.
-          </p>
-          <p>Ruajtjen dhe konfirmimin real do t’i shtojmë më vonë.</p>
-        </>
-      ) : <h1>Nuk ka vende të lira.</h1>}
+      <h1>Kërkesë për {udhetim.nisja} – {udhetim.destinacioni}</h1>
+      <KerkesaUdhetimiLive udhetimiId={id} vendeFillestare={udhetim.vende} />
     </main>
   );
 }

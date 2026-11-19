@@ -95,7 +95,6 @@ export default async function Panel({
         <Link href="/">Kthehu te udhëtimet</Link>
       </p>
 
-      <p>Kërkesa për vend mbetet simulim këtë javë.</p>
     </main>
   );
 }
