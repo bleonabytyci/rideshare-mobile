@@ -36,7 +36,7 @@ Nuk bera nje prove te vecante me koleg. I provova dy rolet me dy llogari testues
 Kur refuzohet leja e vendndodhjes, duhet shkruar vendtakimi manualisht. Kjo nuk e pengon kerkesen per udhetim, por mund ta bej me te qarte kete udhezim ne faqe. Build-i dhe TypeScript kaluan; ESLint per skedaret e ndryshuar kaloi. ESLint i plote ende tregon nje gabim te vjeter te `aplikacioni/src/app/page.tsx` per nje link te faqja kryesore.
 
 ## Ndihma nga AI (Artificial Intelligence - inteligjence artificiale)
-Mora ndihme nga AI per skemen, API-ne dhe perditesimin automatik te faqeve. Pastaj i provova me dy llogari, kontrollova kerkesen, pranimin, numrin e vendeve dhe rilidhjen pas nderprerjes se internetit.
+E perdora AI per databaze
 
 ## Pas dorezimit te pare - perditeso me vone
 Pas dorezimit, shto linkun e Issue-t, commit-in e kontrolluar dhe cfare kaloi ose duhet korrigjuar. Kontrolli teknik 2/2 nuk provon vete funksionimin e aplikacionit.
